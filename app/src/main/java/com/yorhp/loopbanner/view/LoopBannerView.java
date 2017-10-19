@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import com.squareup.picasso.Picasso;
 import com.yorhp.loopbanner.R;
 
+
 /**
  * Created by Tyhj on 2017/10/18.
  */
@@ -29,7 +30,7 @@ public class LoopBannerView extends FrameLayout implements View.OnTouchListener 
     //高度dp
     private static int ROOTVIEWHEIGHT = 200;
     //想要展示的item数量+2
-    private static int ITEM_COUNT = 5;
+    private static int ITEM_COUNT = 6;
     //跳转间隔时间
     private static int MOVE_INTERVAL = 4000;
     //跳转动画时间
@@ -40,8 +41,8 @@ public class LoopBannerView extends FrameLayout implements View.OnTouchListener 
     private static int POINT_SKIP_TIME = 140;
 
     LinearLayout ll_root, ll_point;
-    ImageView iv_one, iv_two, iv_three, iv_four, iv_zero;
-    ImageView iv_point1, iv_point2, iv_point3;
+    ImageView iv_first,iv_first_copy, iv_last, iv_last_copy,iv_other1,iv_other2;
+    ImageView iv_point1, iv_point2, iv_point3,iv_point4;
     ImageView[] imageViews;
 
     //判断是否触摸banner
@@ -73,20 +74,32 @@ public class LoopBannerView extends FrameLayout implements View.OnTouchListener 
     public LoopBannerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.loopbanner, this);
-        iv_one = (ImageView) findViewById(R.id.iv_one);
-        iv_two = (ImageView) findViewById(R.id.iv_two);
-        iv_three = (ImageView) findViewById(R.id.iv_three);
-        iv_four = (ImageView) findViewById(R.id.iv_four);
-        iv_zero = (ImageView) findViewById(R.id.iv_zero);
+
+        iv_first = (ImageView) findViewById(R.id.iv_first);
+        iv_first_copy = (ImageView) findViewById(R.id.iv_first_copy);
+
+        iv_other1 = (ImageView) findViewById(R.id.iv_other1);
+        iv_other2 = (ImageView) findViewById(R.id.iv_other2);
+
+        iv_last = (ImageView) findViewById(R.id.iv_last);
+        iv_last_copy = (ImageView) findViewById(R.id.iv_last_copy);
+
+
         iv_point1 = (ImageView) findViewById(R.id.iv_point1);
         iv_point2 = (ImageView) findViewById(R.id.iv_point2);
         iv_point3 = (ImageView) findViewById(R.id.iv_point3);
-        imageViews = new ImageView[]{iv_point1, iv_point2, iv_point3};
-        Picasso.with(context).load("http://tastespirit.com/img/GEWURZTRAMINER-5.jpg").into(iv_one);
-        Picasso.with(context).load("http://tastespirit.com/img/GEWURZTRAMINER-5.jpg").into(iv_four);
-        Picasso.with(context).load("http://img1.imgtn.bdimg.com/it/u=725515905,2472463078&fm=27&gp=0.jpg").into(iv_two);
-        Picasso.with(context).load("http://img5.imgtn.bdimg.com/it/u=3469050749,2701596166&fm=27&gp=0.jpg").into(iv_three);
-        Picasso.with(context).load("http://img5.imgtn.bdimg.com/it/u=3469050749,2701596166&fm=27&gp=0.jpg").into(iv_zero);
+        iv_point4 = (ImageView) findViewById(R.id.iv_point4);
+
+
+        imageViews = new ImageView[]{iv_point1, iv_point2, iv_point3,iv_point4};
+        Picasso.with(context).load("http://tastespirit.com/img/GEWURZTRAMINER-5.jpg").into(iv_first);
+        Picasso.with(context).load("http://tastespirit.com/img/GEWURZTRAMINER-5.jpg").into(iv_first_copy);
+
+        Picasso.with(context).load("http://img5.imgtn.bdimg.com/it/u=3469050749,2701596166&fm=27&gp=0.jpg").into(iv_last);
+        Picasso.with(context).load("http://img5.imgtn.bdimg.com/it/u=3469050749,2701596166&fm=27&gp=0.jpg").into(iv_last_copy);
+
+        Picasso.with(context).load("http://img1.imgtn.bdimg.com/it/u=725515905,2472463078&fm=27&gp=0.jpg").into(iv_other1);
+        Picasso.with(context).load("http://img5.imgtn.bdimg.com/it/u=641731946,475781889&fm=27&gp=0.jpg").into(iv_other2);
 
         ll_root = (LinearLayout) findViewById(R.id.ll_root);
         ll_point = (LinearLayout) findViewById(R.id.ll_point);
@@ -98,6 +111,7 @@ public class LoopBannerView extends FrameLayout implements View.OnTouchListener 
         iv_point1.setImageResource(R.drawable.ic_point_nomal);
         iv_point2.setImageResource(R.drawable.ic_point_nomal);
         iv_point3.setImageResource(R.drawable.ic_point_nomal);
+        iv_point4.setImageResource(R.drawable.ic_point_nomal);
     }
 
     @Override
@@ -108,10 +122,14 @@ public class LoopBannerView extends FrameLayout implements View.OnTouchListener 
         ll_root.setLayoutParams(new LinearLayout.LayoutParams(viewWidth * ITEM_COUNT, dp2px(ROOTVIEWHEIGHT)));
         ll_point.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp2px(ROOTVIEWHEIGHT)));
 
-        iv_one.setLayoutParams(new LinearLayout.LayoutParams(viewWidth * 1, dp2px(ROOTVIEWHEIGHT)));
-        iv_two.setLayoutParams(new LinearLayout.LayoutParams(viewWidth * 1, dp2px(ROOTVIEWHEIGHT)));
-        iv_three.setLayoutParams(new LinearLayout.LayoutParams(viewWidth * 1, dp2px(ROOTVIEWHEIGHT)));
-        iv_four.setLayoutParams(new LinearLayout.LayoutParams(viewWidth * 1, dp2px(ROOTVIEWHEIGHT)));
+        iv_first.setLayoutParams(new LinearLayout.LayoutParams(viewWidth * 1, dp2px(ROOTVIEWHEIGHT)));
+        iv_first_copy.setLayoutParams(new LinearLayout.LayoutParams(viewWidth * 1, dp2px(ROOTVIEWHEIGHT)));
+
+        iv_last.setLayoutParams(new LinearLayout.LayoutParams(viewWidth * 1, dp2px(ROOTVIEWHEIGHT)));
+        iv_last_copy.setLayoutParams(new LinearLayout.LayoutParams(viewWidth * 1, dp2px(ROOTVIEWHEIGHT)));
+
+        iv_other1.setLayoutParams(new LinearLayout.LayoutParams(viewWidth * 1, dp2px(ROOTVIEWHEIGHT)));
+        iv_other2.setLayoutParams(new LinearLayout.LayoutParams(viewWidth * 1, dp2px(ROOTVIEWHEIGHT)));
 
 
         reSetBanner();
